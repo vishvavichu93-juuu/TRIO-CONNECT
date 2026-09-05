@@ -1,0 +1,1608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RoomMate Connect - Find Your Ideal College Flatmate</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: #131b2e;
+      line-height: 1.6;
+      background: #faf8ff;
+    }
+
+    /* Header */
+    .header-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: #283044;
+      border-bottom: 1px solid rgba(119, 117, 135, 0.2);
+      padding: 8px 32px;
+      z-index: 1000;
+      max-height: 58px;
+      overflow-y: auto;
+    }
+
+    .header-content {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background: #6ffbbe;
+      border-radius: 50%;
+    }
+
+    .status-label {
+      color: #c3c0ff;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 58px;
+      left: 0;
+      right: 0;
+      backdrop-filter: blur(6px);
+      background: rgba(255, 255, 255, 0.9);
+      border-bottom: 1px solid rgba(199, 196, 216, 0.3);
+      padding: 0 32px;
+      z-index: 999;
+      height: 64px;
+    }
+
+    nav .nav-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      height: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .brand-icon {
+      width: 40px;
+      height: 40px;
+      background: #4f46e5;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: white;
+      font-size: 18px;
+      box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+    }
+
+    .brand-name {
+      font-size: 22px;
+      font-weight: 800;
+      color: #3525cd;
+      letter-spacing: -0.55px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .nav-link {
+      font-size: 14px;
+      font-weight: 500;
+      color: #464555;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .nav-link.active {
+      color: #3525cd;
+      font-weight: 700;
+      border-bottom: 2px solid #3525cd;
+      padding-bottom: 6px;
+    }
+
+    .nav-link:hover {
+      color: #3525cd;
+    }
+
+    .quiz-badge {
+      background: #eaddff;
+      color: #25005a;
+      padding: 4px 6px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 700;
+      margin-left: 4px;
+    }
+
+    .auth-buttons {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .btn-login {
+      background: none;
+      border: none;
+      font-size: 14px;
+      font-weight: 600;
+      color: #131b2e;
+      cursor: pointer;
+      padding: 8px 16px;
+      border-radius: 12px;
+      transition: background 0.3s;
+    }
+
+    .btn-login:hover {
+      background: rgba(199, 196, 216, 0.1);
+    }
+
+    .btn-started {
+      background: #4f46e5;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 9999px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+      transition: background 0.3s;
+    }
+
+    .btn-started:hover {
+      background: #4037d9;
+    }
+
+    /* Main Content */
+    main {
+      padding-top: 122px;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(90deg, #f2f3ff 0%, #faf8ff 100%);
+      padding: 48px 32px 81px;
+      border-bottom: 1px solid rgba(199, 196, 216, 0.2);
+    }
+
+    .hero-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .hero-content h1 {
+      font-size: 48px;
+      font-weight: 800;
+      line-height: 60px;
+      margin-bottom: 24px;
+      letter-spacing: -1.2px;
+    }
+
+    .hero-content h1 .highlight {
+      color: #4f46e5;
+      text-decoration: underline;
+      text-decoration-color: #712ae2;
+    }
+
+    .campus-pill {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      background: white;
+      border: 1px solid rgba(199, 196, 216, 0.5);
+      border-radius: 9999px;
+      padding: 7px 15px;
+      margin-bottom: 24px;
+      box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+    }
+
+    .status-indicator {
+      width: 10px;
+      height: 10px;
+      background: #006e4b;
+      border-radius: 50%;
+    }
+
+    .campus-pill .text {
+      font-size: 12px;
+      font-weight: 700;
+      color: #3525cd;
+    }
+
+    .campus-pill .subtext {
+      font-size: 12px;
+      color: #777587;
+      margin-left: 4px;
+    }
+
+    .hero-description {
+      font-size: 16px;
+      color: #464555;
+      line-height: 26px;
+      margin-bottom: 24px;
+    }
+
+    .search-bar {
+      background: white;
+      border: 1px solid rgba(199, 196, 216, 0.4);
+      border-radius: 16px;
+      padding: 9px;
+      margin-bottom: 32px;
+      box-shadow: 0 12px 32px -4px rgba(79, 70, 229, 0.08), 0 4px 12px -2px rgba(15, 23, 42, 0.04);
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .search-input {
+      flex: 1;
+      border: none;
+      background: none;
+      padding: 12px 12px 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #131b2e;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    .search-input::placeholder {
+      color: #999;
+    }
+
+    .search-input:focus {
+      outline: none;
+    }
+
+    .divider {
+      width: 1px;
+      height: 24px;
+      background: rgba(199, 196, 216, 0.4);
+    }
+
+    .budget-selector {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      padding: 12px 24px 12px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #131b2e;
+      cursor: pointer;
+      border-radius: 8px;
+    }
+
+    .search-btn {
+      background: #4f46e5;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      white-space: nowrap;
+    }
+
+    .search-btn:hover {
+      background: #4037d9;
+    }
+
+    .trust-stats {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+      padding-top: 8px;
+    }
+
+    .stat-group {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .avatars {
+      display: flex;
+      align-items: center;
+    }
+
+    .avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 2px solid white;
+      background-size: cover;
+      background-position: center;
+      margin-left: -8px;
+      box-shadow: 0 0 0 2px white;
+    }
+
+    .avatar:first-child {
+      margin-left: 0;
+    }
+
+    .stat-text {
+      font-size: 12px;
+      font-weight: 600;
+      color: #131b2e;
+    }
+
+    .verified-badge {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: #005338;
+    }
+
+    /* Form Notification */
+    .form-notification {
+      position: fixed;
+      top: 200px;
+      right: 24px;
+      background: #283044;
+      border: 1px solid rgba(119, 117, 135, 0.3);
+      color: #eef0ff;
+      padding: 13px 17px;
+      border-radius: 16px;
+      font-size: 12px;
+      font-weight: 600;
+      box-shadow: 0 24px 48px -12px rgba(15, 23, 42, 0.18);
+      display: none;
+      gap: 8px;
+      align-items: center;
+      z-index: 2000;
+      animation: slideIn 0.3s ease-out;
+    }
+
+    .form-notification.success {
+      display: flex;
+      background: #005338;
+      border-color: rgba(0, 83, 56, 0.3);
+    }
+
+    .form-notification.error {
+      display: flex;
+      background: #832c3d;
+      border-color: rgba(131, 44, 61, 0.3);
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateX(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    /* Problem vs Solution */
+    .problem-solution {
+      background: white;
+      padding: 48px 32px 49px;
+      border-bottom: 1px solid rgba(199, 196, 216, 0.3);
+    }
+
+    .problem-solution-container {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.1px;
+      color: #712ae2;
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 36px;
+      margin-bottom: 16px;
+      letter-spacing: -0.56px;
+    }
+
+    .section-description {
+      font-size: 14px;
+      color: #464555;
+      line-height: 22px;
+      max-width: 672px;
+      margin: 0 auto;
+    }
+
+    .comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+
+    .comparison-box {
+      border-radius: 16px;
+      padding: 33px;
+      border: 1px solid rgba(199, 196, 216, 0.3);
+    }
+
+    .comparison-box.traditional {
+      background: rgba(255, 218, 214, 0.1);
+      border-color: rgba(186, 26, 26, 0.2);
+    }
+
+    .comparison-box.solution {
+      background: #f2f3ff;
+      border: 2px solid rgba(53, 37, 205, 0.2);
+      box-shadow: 0 12px 32px -4px rgba(79, 70, 229, 0.08), 0 4px 12px -2px rgba(15, 23, 42, 0.04);
+    }
+
+    .comparison-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .comparison-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .comparison-item {
+      display: flex;
+      gap: 10px;
+      font-size: 14px;
+      color: #464555;
+      line-height: 20px;
+    }
+
+    .comparison-icon {
+      width: 15px;
+      height: 17px;
+      flex-shrink: 0;
+    }
+
+    /* Roommates Section */
+    .roommates-section {
+      background: #faf8ff;
+      padding: 48px 32px;
+    }
+
+    .roommates-container {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .section-header-with-link {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 32px;
+    }
+
+    .view-all-link {
+      color: #3525cd;
+      font-weight: 700;
+      font-size: 14px;
+      text-decoration: none;
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
+
+    .view-all-link:hover {
+      text-decoration: underline;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .roommate-card {
+      background: white;
+      border: 1px solid rgba(199, 196, 216, 0.3);
+      border-radius: 16px;
+      padding: 21px;
+      box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04), 0 2px 6px -1px rgba(15, 23, 42, 0.02);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .card-profile {
+      display: flex;
+      gap: 12px;
+    }
+
+    .card-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      border: 1px solid rgba(199, 196, 216, 0.4);
+      background-size: cover;
+      background-position: center;
+    }
+
+    .card-info h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .verified-icon {
+      width: 14px;
+      height: 14px;
+    }
+
+    .card-info p {
+      font-size: 12px;
+      color: #464555;
+      margin: 2px 0;
+    }
+
+    .card-info .year {
+      font-size: 11px;
+      color: #777587;
+    }
+
+    .match-badge {
+      background: #eaddff;
+      color: #25005a;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .card-tags {
+      height: 47px;
+      margin: 12px 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-content: flex-start;
+    }
+
+    .tag {
+      background: #eaedff;
+      color: #464555;
+      padding: 2.5px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    .card-description {
+      font-size: 12px;
+      color: #464555;
+      line-height: 16px;
+      margin-bottom: 12px;
+      flex-grow: 1;
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 13px;
+      border-top: 1px solid rgba(199, 196, 216, 0.2);
+    }
+
+    .budget {
+      display: flex;
+      flex-direction: column;
+      gap: 2.5px;
+    }
+
+    .budget-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      color: #777587;
+      font-weight: 700;
+    }
+
+    .budget-amount {
+      font-size: 14px;
+      font-weight: 700;
+      color: #3525cd;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-secondary {
+      background: #eaedff;
+      color: #3525cd;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn-secondary:hover {
+      background: #dae2fd;
+    }
+
+    .btn-primary {
+      background: #4f46e5;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      background: #4037d9;
+    }
+
+    /* Housing Section */
+    .housing-section {
+      background: #f2f3ff;
+      padding: 48px 32px;
+      border-top: 1px solid rgba(199, 196, 216, 0.2);
+    }
+
+    .housing-container {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .section-label.green {
+      color: #005338;
+    }
+
+    .property-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .property-card {
+      background: white;
+      border: 1px solid rgba(199, 196, 216, 0.3);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04), 0 2px 6px -1px rgba(15, 23, 42, 0.02);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .property-image {
+      width: 100%;
+      height: 192px;
+      background: linear-gradient(135deg, #ccc, #eee);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .property-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(4px);
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #005338;
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
+
+    .distance-badge {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      background: rgba(40, 48, 68, 0.8);
+      backdrop-filter: blur(4px);
+      color: #eef0ff;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+    }
+
+    .property-info {
+      padding: 20px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .property-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 4px;
+    }
+
+    .property-info h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .property-price {
+      font-size: 14px;
+      font-weight: 700;
+      color: #3525cd;
+    }
+
+    .property-price .unit {
+      font-size: 12px;
+      color: #777587;
+      font-weight: 400;
+      margin-left: 2px;
+    }
+
+    .property-location {
+      font-size: 12px;
+      color: #464555;
+      margin-bottom: 7.5px;
+    }
+
+    .property-amenities {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 13px;
+    }
+
+    .amenity {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+      font-size: 12px;
+      color: #777587;
+    }
+
+    .view-details-btn {
+      background: #4f46e5;
+      color: white;
+      border: none;
+      padding: 8px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+      width: 100%;
+    }
+
+    .view-details-btn:hover {
+      background: #4037d9;
+    }
+
+    /* College Hubs */
+    .hubs-section {
+      background: #faf8ff;
+      padding: 48px 32px;
+    }
+
+    .hubs-container {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .hubs-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .hub-card {
+      background: white;
+      border: 1px solid rgba(199, 196, 216, 0.3);
+      border-radius: 16px;
+      padding: 17px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 11px;
+    }
+
+    .hub-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .hub-icon.vit {
+      background: #e2dfff;
+      color: #3525cd;
+    }
+
+    .hub-icon.au {
+      background: #eaddff;
+      color: #712ae2;
+    }
+
+    .hub-icon.srm {
+      background: #dae2fd;
+      color: #3525cd;
+    }
+
+    .hub-icon.iit {
+      background: #6ffbbe;
+      color: #005338;
+    }
+
+    .hub-card h4 {
+      font-size: 14px;
+      font-weight: 600;
+      color: #131b2e;
+    }
+
+    .hub-card p {
+      font-size: 11px;
+      color: #777587;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      background: linear-gradient(90deg, #3525cd 0%, #4f46e5 50%, #712ae2 100%);
+      padding: 48px 32px;
+      color: white;
+      text-align: center;
+    }
+
+    .cta-container {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .cta-heading {
+      font-size: 48px;
+      font-weight: 800;
+      line-height: 56px;
+      margin-bottom: 16px;
+      letter-spacing: -1.44px;
+    }
+
+    .cta-description {
+      font-size: 16px;
+      color: #dad7ff;
+      line-height: 26px;
+      max-width: 576px;
+      margin: 0 auto 16px;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      padding-top: 16px;
+    }
+
+    .cta-btn-primary {
+      background: white;
+      color: #3525cd;
+      border: none;
+      padding: 15px 32px;
+      border-radius: 9999px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      box-shadow: 0 12px 32px -4px rgba(79, 70, 229, 0.08), 0 4px 12px -2px rgba(15, 23, 42, 0.04);
+    }
+
+    .cta-btn-primary:hover {
+      background: #f5f5f5;
+    }
+
+    .cta-btn-secondary {
+      background: rgba(79, 70, 229, 0.4);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 15px 33px;
+      border-radius: 9999px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .cta-btn-secondary:hover {
+      background: rgba(79, 70, 229, 0.5);
+    }
+
+    /* Footer */
+    footer {
+      background: #f2f3ff;
+      border-top: 1px solid rgba(199, 196, 216, 0.4);
+      padding: 48px 32px;
+    }
+
+    .footer-container {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 32px;
+      margin-bottom: 32px;
+    }
+
+    .footer-section h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #131b2e;
+    }
+
+    .footer-section p {
+      font-size: 12px;
+      color: #464555;
+      line-height: 18px;
+      margin-bottom: 12px;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .footer-link {
+      font-size: 12px;
+      color: #464555;
+      text-decoration: none;
+    }
+
+    .footer-link:hover {
+      color: #3525cd;
+    }
+
+    .footer-badge {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+      font-size: 12px;
+      color: #005338;
+      font-weight: 600;
+    }
+
+    .footer-divider {
+      border-top: 1px solid rgba(199, 196, 216, 0.2);
+      padding-top: 25px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: #464555;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero-container {
+        grid-template-columns: 1fr;
+      }
+
+      .cards-grid,
+      .property-grid,
+      .hubs-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .comparison {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .cta-heading {
+        font-size: 32px;
+        line-height: 40px;
+      }
+
+      .hero-content h1 {
+        font-size: 32px;
+        line-height: 40px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header Bar -->
+  <div class="header-bar">
+    <div class="header-content">
+      <div class="status-dot"></div>
+      <div class="status-label">Live Simulation Switcher:</div>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-container">
+      <div class="brand">
+        <div class="brand-icon">✓</div>
+        <div class="brand-name">RoomMate Connect</div>
+      </div>
+      <div class="nav-links">
+        <a href="#" class="nav-link active">Home</a>
+        <a href="#" class="nav-link">Find Roommate</a>
+        <a href="#" class="nav-link">Find Rooms</a>
+        <a href="#" class="nav-link">How It Works <span class="quiz-badge">Quiz</span></a>
+        <a href="#" class="nav-link">Safety</a>
+        <a href="#" class="nav-link">Admin View</a>
+      </div>
+      <div class="auth-buttons">
+        <button class="btn-login">Log In</button>
+        <button class="btn-started">Get Started</button>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-container">
+        <div class="hero-content">
+          <div class="campus-pill">
+            <div class="status-indicator"></div>
+            <div class="text">Fall 2025 Semester Matching Open</div>
+            <div class="subtext">· VIT, Anna Univ, SRM & IIT Madras</div>
+          </div>
+
+          <h1>
+            Find the <span class="highlight">Right Roommate</span>,<br>
+            Not Just a Room.
+          </h1>
+
+          <p class="hero-description">
+            Tired of awkward habits, conflicting study sleep cycles, and unpredictable PG leases? RoomMate Connect matches university students by verified academic credentials, verified lifestyles, and budget first.
+          </p>
+
+          <div class="search-bar">
+            <svg width="18" height="15" viewBox="0 0 18 15" fill="none" style="flex-shrink: 0; margin-left: 12px;">
+              <path fill="#4f46e5" d="M9 0l2.939 8.539H21.08l-7.07 5.139L16.95 22l-7.95-5.761L0 22l2.939-8.322L-4.13 8.539H8.061L9 0z" transform="scale(0.5)"/>
+            </svg>
+            <input type="text" class="search-input" placeholder="Vellore Institute of Technology (VIT)" readonly>
+            <div class="divider"></div>
+            <div class="budget-selector">
+              <span style="margin-right: 12px;">₹6k - ₹10k / mo</span>
+            </div>
+            <button class="search-btn">Match Now</button>
+          </div>
+
+          <div class="trust-stats">
+            <div class="stat-group">
+              <div class="avatars">
+                <div class="avatar" style="background: url('https://via.placeholder.com/32') center/cover;"></div>
+                <div class="avatar" style="background: url('https://via.placeholder.com/32') center/cover; margin-left: -8px;"></div>
+                <div class="avatar" style="background: url('https://via.placeholder.com/32') center/cover; margin-left: -8px;"></div>
+              </div>
+              <div class="stat-text">14,200+ Verified Students</div>
+            </div>
+            <div class="stat-group">
+              <span style="color: #005338; font-weight: 600; font-size: 12px;">✓</span>
+              <div class="verified-badge">100% .edu / College ID Authenticated</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-right">
+          <!-- Featured Profile Card would go here -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Problem vs Solution -->
+    <section class="problem-solution">
+      <div class="problem-solution-container">
+        <div class="section-header">
+          <div class="section-label">THE MODERN STUDENT PARADIGM</div>
+          <h2 class="section-title">Why "Roommate First" Solves 90% of College Housing Drama</h2>
+          <p class="section-description">
+            Traditional portals lock you into leases with unknown individuals. We flip the script: pair with compatible students first, then secure safe group housing together.
+          </p>
+        </div>
+
+        <div class="comparison">
+          <div class="comparison-box traditional">
+            <div class="comparison-title">❌ The Traditional Broker Way</div>
+            <div class="comparison-list">
+              <div class="comparison-item">
+                <strong>Random Room Allotment:</strong> Moving in with students with conflicting sleep schedules, chaotic party habits, or incompatible study routines.
+              </div>
+              <div class="comparison-item">
+                <strong>Hidden Brokerage Fees:</strong> Local agents taking 1 month rent as commission with zero safety inspection.
+              </div>
+              <div class="comparison-item">
+                <strong>Lock-in Penalties:</strong> 11-month non-refundable security deposits even when conflicts make it unlivable.
+              </div>
+            </div>
+          </div>
+
+          <div class="comparison-box solution">
+            <div class="comparison-title">✓ The RoomMate Connect Solution</div>
+            <div class="comparison-list">
+              <div class="comparison-item">
+                <strong>Social Alignment First:</strong> Compare 18+ lifestyle traits (sleeping habits, study noise, food habits, cleanliness) before saying hello.
+              </div>
+              <div class="comparison-item">
+                <strong>100% University Verified IDs:</strong> Every student profile verified against official college email and enrollment IDs.
+              </div>
+              <div class="comparison-item">
+                <strong>Verified Student PGs & Flats:</strong> Properties physically inspected with CCTV, biometric entry, and high-speed Wi-Fi guaranteed.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Roommates Section -->
+    <section class="roommates-section">
+      <div class="roommates-container">
+        <div class="section-header-with-link">
+          <div>
+            <div class="section-label" style="color: #3525cd;">PEER MATCHMAKING</div>
+            <h2 class="section-title">Students Seeking Roommates Near You</h2>
+            <p class="section-description">Active students with verified compatibility indexes.</p>
+          </div>
+          <a href="#" class="view-all-link">View All 240+ Profiles →</a>
+        </div>
+
+        <div class="cards-grid">
+          <div class="roommate-card">
+            <div class="card-header">
+              <div class="card-profile">
+                <div class="card-avatar" style="background: url('https://via.placeholder.com/56') center/cover;"></div>
+                <div class="card-info">
+                  <h3>Arun Kumar <span class="verified-icon">✓</span></h3>
+                  <p>VIT Vellore · B.Sc Data Analytics</p>
+                  <p class="year">Class of 2026</p>
+                </div>
+              </div>
+              <div class="match-badge">92% Match</div>
+            </div>
+            <div class="card-tags">
+              <span class="tag">🌙 Night Owl</span>
+              <span class="tag">🥗 Vegetarian</span>
+              <span class="tag">🔇 Silent Study</span>
+              <span class="tag">🚭 Non-Smoker</span>
+            </div>
+            <p class="card-description">"Looking for a 2BHK flatmate near VIT Katpadi Gate. I study late evenings, keep common areas tidy, and play casual…</p>
+            <div class="card-footer">
+              <div class="budget">
+                <div class="budget-label">Budget</div>
+                <div class="budget-amount">₹7,000 - ₹9,000</div>
+              </div>
+              <div class="card-actions">
+                <button class="btn-secondary">Inspect</button>
+                <button class="btn-primary">Connect</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="roommate-card">
+            <div class="card-header">
+              <div class="card-profile">
+                <div class="card-avatar" style="background: url('https://via.placeholder.com/56') center/cover;"></div>
+                <div class="card-info">
+                  <h3>Sneha Patel <span class="verified-icon">✓</span></h3>
+                  <p>Anna University · B.Tech ECE</p>
+                  <p class="year">Class of 2025</p>
+                </div>
+              </div>
+              <div class="match-badge">88% Match</div>
+            </div>
+            <div class="card-tags">
+              <span class="tag">☀️ Early Bird</span>
+              <span class="tag">🍳 Home Cook</span>
+              <span class="tag">🎵 Music Friendly</span>
+              <span class="tag">🧹 Clean Freak</span>
+            </div>
+            <p class="card-description">"Final year student looking for a female roommate in Guindy or Adyar. Very disciplined about morning wake-up hours and…</p>
+            <div class="card-footer">
+              <div class="budget">
+                <div class="budget-label">Budget</div>
+                <div class="budget-amount">₹8,000 - ₹11,000</div>
+              </div>
+              <div class="card-actions">
+                <button class="btn-secondary">Inspect</button>
+                <button class="btn-primary">Connect</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="roommate-card">
+            <div class="card-header">
+              <div class="card-profile">
+                <div class="card-avatar" style="background: url('https://via.placeholder.com/56') center/cover;"></div>
+                <div class="card-info">
+                  <h3>Rohan Joseph <span class="verified-icon">✓</span></h3>
+                  <p>SRM Kattankulathur · B.Des</p>
+                  <p class="year">Class of 2026</p>
+                </div>
+              </div>
+              <div class="match-badge">85% Match</div>
+            </div>
+            <div class="card-tags">
+              <span class="tag">🌙 Night Owl</span>
+              <span class="tag">☕ Coffee Addict</span>
+              <span class="tag">🎨 Creative Studio</span>
+              <span class="tag">🚴 Cycling</span>
+            </div>
+            <p class="card-description">"Looking for 1 chill flatmate for an apartment near SRM Potheri station. Have high speed optic fiber and PS5 setup."</p>
+            <div class="card-footer">
+              <div class="budget">
+                <div class="budget-label">Budget</div>
+                <div class="budget-amount">₹6,500 - ₹8,500</div>
+              </div>
+              <div class="card-actions">
+                <button class="btn-secondary">Inspect</button>
+                <button class="btn-primary">Connect</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Housing Section -->
+    <section class="housing-section">
+      <div class="housing-container">
+        <div class="section-header-with-link">
+          <div>
+            <div class="section-label green">INSPECTED & SAFE</div>
+            <h2 class="section-title">Verified Student PGs Around Major Campuses</h2>
+            <p class="section-description">Zero brokerage, zero surprise deductions, and direct landlord agreements.</p>
+          </div>
+          <a href="#" class="view-all-link">Browse All 85+ Properties →</a>
+        </div>
+
+        <div class="property-grid">
+          <div class="property-card">
+            <div class="property-image">
+              <div style="width: 100%; height: 100%; background: #ddd;"></div>
+              <div class="badge">✓ Campus Verified</div>
+              <div class="distance-badge">1.2 km from VIT Vellore</div>
+            </div>
+            <div class="property-info">
+              <div class="property-header">
+                <h3>Green Valley Student PG</h3>
+                <div>
+                  <span class="property-price">₹8,500<span class="unit">/mo</span></span>
+                </div>
+              </div>
+              <p class="property-location">Katpadi, Vellore · 2 & 3 Sharing Available</p>
+              <div class="property-amenities">
+                <div class="amenity">📡 300 Mbps</div>
+                <div class="amenity">🍽️ 3 Meals</div>
+                <div class="amenity">👔 Laundry</div>
+              </div>
+              <button class="view-details-btn">View Details & Roommates</button>
+            </div>
+          </div>
+
+          <div class="property-card">
+            <div class="property-image">
+              <div style="width: 100%; height: 100%; background: #ddd;"></div>
+              <div class="badge">✓ Campus Verified</div>
+              <div class="distance-badge">0.8 km from Anna Univ</div>
+            </div>
+            <div class="property-info">
+              <div class="property-header">
+                <h3>The Scholars Hub</h3>
+                <div>
+                  <span class="property-price">₹9,800<span class="unit">/mo</span></span>
+                </div>
+              </div>
+              <p class="property-location">Guindy, Chennai · AC Twin Sharing</p>
+              <div class="property-amenities">
+                <div class="amenity">❄️ AC</div>
+                <div class="amenity">🔐 Biometric</div>
+                <div class="amenity">🧹 Daily Maid</div>
+              </div>
+              <button class="view-details-btn">View Details & Roommates</button>
+            </div>
+          </div>
+
+          <div class="property-card">
+            <div class="property-image">
+              <div style="width: 100%; height: 100%; background: #ddd;"></div>
+              <div class="badge">✓ Campus Verified</div>
+              <div class="distance-badge">1.5 km from SRM Univ</div>
+            </div>
+            <div class="property-info">
+              <div class="property-header">
+                <h3>Potheri Haven Luxury PG</h3>
+                <div>
+                  <span class="property-price">₹7,200<span class="unit">/mo</span></span>
+                </div>
+              </div>
+              <p class="property-location">Potheri, Chennai · Non-AC & AC Suites</p>
+              <div class="property-amenities">
+                <div class="amenity">💪 Gym</div>
+                <div class="amenity">⚡ Power Backup</div>
+                <div class="amenity">🛋️ Lounge</div>
+              </div>
+              <button class="view-details-btn">View Details & Roommates</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- College Hubs -->
+    <section class="hubs-section">
+      <div class="hubs-container">
+        <div class="section-header">
+          <div class="section-label" style="color: #3525cd;">CAMPUS ECOSYSTEM</div>
+          <h2 class="section-title">Find Your College Community</h2>
+          <p class="section-description">Join localized roommate and housing cohorts for your university.</p>
+        </div>
+
+        <div class="hubs-grid">
+          <div class="hub-card">
+            <div class="hub-icon vit">VIT</div>
+            <h4>VIT Vellore</h4>
+            <p>840+ active matches</p>
+          </div>
+          <div class="hub-card">
+            <div class="hub-icon au">AU</div>
+            <h4>Anna University</h4>
+            <p>520+ active matches</p>
+          </div>
+          <div class="hub-card">
+            <div class="hub-icon srm">SRM</div>
+            <h4>SRM KTR Campus</h4>
+            <p>690+ active matches</p>
+          </div>
+          <div class="hub-card">
+            <div class="hub-icon iit">IIT</div>
+            <h4>IIT Madras / Guindy</h4>
+            <p>380+ active matches</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <div class="cta-container">
+        <h2 class="cta-heading">Ready to Find Your Ideal<br>College Flatmate?</h2>
+        <p class="cta-description">
+          Take our 2-minute lifestyle quiz and view instant student compatibility scores before contacting anyone.
+        </p>
+        <div class="cta-buttons">
+          <button class="cta-btn-primary">Launch Compatibility Matcher</button>
+          <button class="cta-btn-secondary">Browse All Profiles</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>RoomMate Connect</h3>
+          <p>Student-first safety & housing verification guaranteed. Pairing university students before leases since 2023.</p>
+          <div class="footer-badge">
+            ✓ 100% University Verified Ecosystem
+          </div>
+        </div>
+        <div class="footer-section">
+          <h3>Campus Safety & Trust</h3>
+          <div class="footer-links">
+            <a href="#" class="footer-link">Campus Safety Guarantee</a>
+            <a href="#" class="footer-link">College Community Hubs</a>
+            <a href="#" class="footer-link">Verified Housing Guide</a>
+          </div>
+        </div>
+        <div class="footer-section">
+          <h3>Matchmaking Technology</h3>
+          <div class="footer-links">
+            <a href="#" class="footer-link">Matchmaking Algorithm</a>
+            <a href="#" class="footer-link">Find Roommate Directory</a>
+            <a href="#" class="footer-link">Admin Verification Portal</a>
+          </div>
+        </div>
+        <div class="footer-section">
+          <h3>Legal & Institutional</h3>
+          <div class="footer-links">
+            <a href="#" class="footer-link">Terms of Service</a>
+            <a href="#" class="footer-link">Privacy Policy</a>
+            <a href="#" class="footer-link">Student Disciplinary Protocol</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-divider">
+        <span>© 2025 RoomMate Connect Inc. Student-first safety & housing verification guaranteed.</span>
+        <span>VIT · Anna Univ · SRM · IIT-M Supported</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Form Notification -->
+  <div class="form-notification" id="notification"></div>
+
+  <!-- Contact Form Modal (initially hidden, shown on scroll or button click) -->
+  <div id="contactModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 10000; align-items: center; justify-content: center;">
+    <div style="background: white; padding: 40px; border-radius: 16px; max-width: 400px; width: 90%;">
+      <h2 style="margin-bottom: 20px; font-size: 24px; font-weight: 700;">Get Started with RoomMate Connect</h2>
+      <form id="contactForm" style="display: flex; flex-direction: column; gap: 16px;">
+        <div>
+          <label style="display: block; margin-bottom: 8px; font-weight: 600;">Name</label>
+          <input type="text" name="name" required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px;">
+        </div>
+        <div>
+          <label style="display: block; margin-bottom: 8px; font-weight: 600;">Email</label>
+          <input type="email" name="email" required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px;">
+        </div>
+        <div>
+          <label style="display: block; margin-bottom: 8px; font-weight: 600;">Phone</label>
+          <input type="tel" name="phone" required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px;">
+        </div>
+        <button type="submit" style="background: #4f46e5; color: white; border: none; padding: 12px; border-radius: 8px; font-weight: 700; cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif;">Submit</button>
+        <button type="button" onclick="document.getElementById('contactModal').style.display='none'" style="background: #eaedff; color: #3525cd; border: none; padding: 12px; border-radius: 8px; font-weight: 600; cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif;">Cancel</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzxD4lnaOp-ELdLAL96uqfhSRyorFYtOmuyYLD0NWGkcCd8GZV7zZ37mNc04wDUvoYbnA/exec';
+    
+    const contactForm = document.getElementById('contactForm');
+    const notification = document.getElementById('notification');
+    const modal = document.getElementById('contactModal');
+
+    // Show form modal when "Get Started" button is clicked
+    document.querySelectorAll('.btn-started, .cta-btn-primary').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        modal.style.display = 'flex';
+      });
+    });
+
+    // Handle form submission
+    contactForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const name = contactForm.querySelector('input[name="name"]').value;
+      const email = contactForm.querySelector('input[name="email"]').value;
+      const phone = contactForm.querySelector('input[name="phone"]').value;
+
+      try {
+        // Build URL with query parameters
+        const url = SCRIPT_URL + '?' + new URLSearchParams({name, email, phone});
+        
+        // Fetch with GET and no-cors mode
+        await fetch(url, { method: "GET", mode: "no-cors" });
+        
+        // Show success message
+        showSuccess();
+        
+        // Reset form
+        contactForm.reset();
+        
+        // Close modal after 2 seconds
+        setTimeout(() => {
+          modal.style.display = 'none';
+        }, 2000);
+      } catch (error) {
+        showError();
+      }
+    });
+
+    function showSuccess() {
+      notification.textContent = '✓ Form submitted successfully!';
+      notification.classList.add('success');
+      notification.style.display = 'flex';
+      setTimeout(() => {
+        notification.classList.remove('success');
+        notification.style.display = 'none';
+      }, 3000);
+    }
+
+    function showError() {
+      notification.textContent = '✗ Error submitting form. Please try again.';
+      notification.classList.add('error');
+      notification.style.display = 'flex';
+      setTimeout(() => {
+        notification.classList.remove('error');
+        notification.style.display = 'none';
+      }, 3000);
+    }
+
+    // Close modal when clicking outside
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>
